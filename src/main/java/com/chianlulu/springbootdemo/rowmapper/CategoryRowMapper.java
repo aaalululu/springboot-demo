@@ -9,8 +9,6 @@ import java.sql.SQLException;
 
 //<Category>表示要轉換成Category這個java class
 public class CategoryRowMapper implements RowMapper<Category> {
-
-
     @Override
     public Category mapRow(ResultSet resultSet, int i) throws SQLException {
         Category category = new Category();

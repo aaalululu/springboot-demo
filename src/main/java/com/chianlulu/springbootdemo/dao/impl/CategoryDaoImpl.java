@@ -47,7 +47,7 @@ public class CategoryDaoImpl implements CategoryDao {
         map.put("categoryName",categoryRequest.getCategoryName());
         map.put("createDate",now);
         map.put("editDate",now);
-
+        
         //Spring利用GeneratedKeyHolder，提供了一个可以返回新增记录对应主键值的方法
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
