@@ -1,0 +1,15 @@
+* 三層式架構+實作介面的class
+* DAO方法 
+  * SQL語句：?用 冒號+欄位名 取代
+  *     Map<String,Object> map = new HashMap<>();map.put("product_id",productId);
+    * a list of arguments to bind to the query
+namedParameterJdbcTemplate 方法
+      * 查詢時
+        *     query(String sql, Map<String,?> paramMap, RowMapper<T> rowMapper)
+        * rawmapper(儲存從db查到的資料)
+      * 新增時
+        *     int  update(String sql, SqlParameterSource paramSource, KeyHolder generatedKeyHolder, String[] keyColumnNames)
+        * KeyHolder：回傳自增主鍵新增至DB的那筆資料the keys are returned as a List containing one Map for each row of keys
+        * keyColumnNames：指明是哪一個欄位
+
+

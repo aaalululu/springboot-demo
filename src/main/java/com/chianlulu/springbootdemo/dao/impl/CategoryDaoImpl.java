@@ -48,10 +48,11 @@ public class CategoryDaoImpl implements CategoryDao {
         map.put("createDate",now);
         map.put("editDate",now);
         
-        //Spring利用GeneratedKeyHolder，提供了一个可以返回新增记录对应主键值的方法
+        //儲存新增的資料
+        //holding auto-generated keys (as potentially returned by JDBC insert statements)
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-
+        //將上述的map轉換為 MapSqlParameterSource物件(內部使用了一個Map儲存的命名引數的名稱和值)
         namedParameterJdbcTemplate.update(sql,new MapSqlParameterSource(map),keyHolder,new String[] {"category_id"});
 
         int categoryId = keyHolder.getKey().intValue();
