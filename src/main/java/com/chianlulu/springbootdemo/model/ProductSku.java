@@ -4,23 +4,38 @@ import java.util.Date;
 
 public class ProductSku {
 
-    private Integer productSkuId;
-    private String size;
+    private Integer skuId;
+    private Integer spuId;
+    private String gender;
     private String color;
+    private String skuSize;
     private Integer stock;
+    private String pCode;
     private Date createDate;
     private Date editDate;
 
-    public Integer getProductSkuId() {
-        return productSkuId;
+    public Integer getSkuId() {
+        return skuId;
     }
 
-    public void setProductSkuId(Integer productSkuId) {
-        this.productSkuId = productSkuId;
+    public void setSkuId(Integer skuId) {
+        this.skuId = skuId;
     }
 
-    public String getSize() {
-        return size;
+    public Integer getSpuId() {
+        return spuId;
+    }
+
+    public void setSpuId(Integer spuId) {
+        this.spuId = spuId;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getColor() {
@@ -31,8 +46,12 @@ public class ProductSku {
         this.color = color;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public String getSkuSize() {
+        return skuSize;
+    }
+
+    public void setSkuSize(String skuSize) {
+        this.skuSize = skuSize;
     }
 
     public Integer getStock() {
@@ -41,6 +60,14 @@ public class ProductSku {
 
     public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+    public String getpCode() {
+        return pCode;
+    }
+
+    public void setpCode(String pCode) {
+        this.pCode = pCode;
     }
 
     public Date getCreateDate() {
