@@ -7,6 +7,8 @@ import com.chianlulu.springbootdemo.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class BrandServiceImpl implements BrandService {
 
@@ -16,6 +18,11 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Brand getBrandById(Integer brandId) {
         return brandDao.getBrandById(brandId);
+    }
+
+    @Override
+    public List<Brand> getBrands(String search) {
+        return brandDao.getBrands(search);
     }
 
     @Override

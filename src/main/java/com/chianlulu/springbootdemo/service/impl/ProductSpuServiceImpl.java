@@ -7,6 +7,8 @@ import com.chianlulu.springbootdemo.service.ProductSpuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ProductSpuServiceImpl implements ProductSpuService {
     @Autowired
@@ -15,6 +17,11 @@ public class ProductSpuServiceImpl implements ProductSpuService {
     @Override
     public ProductSpu getProductById(Integer product_spu_id) {
         return productSpuDao.getProductById(product_spu_id);
+    }
+
+    @Override
+    public List<ProductSpu> getProductSpuList(String search) {
+        return productSpuDao.getProductSpuList(search);
     }
 
     @Override
@@ -28,7 +35,8 @@ public class ProductSpuServiceImpl implements ProductSpuService {
     }
 
     @Override
-    public void deleteProduct(Integer product_spu_id) {
+    public void deleteProductSpuById(Integer product_spu_id) {
+        productSpuDao.deleteProductSpuById(product_spu_id);
 
     }
 }

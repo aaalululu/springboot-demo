@@ -4,27 +4,31 @@ import java.util.Date;
 
 public class ProductSpu {
 
-    private Integer productSpuId;
-    private String productName;
+    private Integer spuId;
+    private String spuName;
     private Integer brandId;
+    private Integer categorySubId;
+    private String imgUrl;
+    private String spuInfo;
     private Integer price;
+    private String isMarketable;
     private Date createDate;
     private Date editDate;
 
-    public Integer getProductSpuId() {
-        return productSpuId;
+    public Integer getSpuId() {
+        return spuId;
     }
 
-    public void setProductSpuId(Integer productSpuId) {
-        this.productSpuId = productSpuId;
+    public void setSpuId(Integer spuId) {
+        this.spuId = spuId;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getSpuName() {
+        return spuName;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setSpuName(String spuName) {
+        this.spuName = spuName;
     }
 
     public Integer getBrandId() {
@@ -33,6 +37,30 @@ public class ProductSpu {
 
     public void setBrandId(Integer brandId) {
         this.brandId = brandId;
+    }
+
+    public Integer getCategorySubId() {
+        return categorySubId;
+    }
+
+    public void setCategorySubId(Integer categorySubId) {
+        this.categorySubId = categorySubId;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getSpuInfo() {
+        return spuInfo;
+    }
+
+    public void setSpuInfo(String spuInfo) {
+        this.spuInfo = spuInfo;
     }
 
     public Integer getPrice() {
@@ -57,5 +85,13 @@ public class ProductSpu {
 
     public void setEditDate(Date editDate) {
         this.editDate = editDate;
+    }
+
+    public String getIsMarketable() {
+        return isMarketable;
+    }
+
+    public void setIsMarketable(String isMarketable) {
+        this.isMarketable = isMarketable;
     }
 }

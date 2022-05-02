@@ -8,11 +8,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ProductSpuController {
 
     @Autowired
     private ProductSpuService productSpuService;
+
+    @GetMapping("/product_spu")
+    public ResponseEntity<List<ProductSpu>> getProductSpus(@RequestParam(required = false) String search) {
+        List<ProductSpu> productSpuList=productSpuService.getProductSpuList(search);
+
+        return ResponseEntity.status(HttpStatus.OK).body(productSpuList);
+    }
+
 
     @GetMapping("/product_spu/{product_spu_id}")
     public ResponseEntity<ProductSpu> getProductById(@PathVariable Integer product_spu_id) {
@@ -47,6 +57,13 @@ public class ProductSpuController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+
+    }
+
+    @DeleteMapping("/product_spu/{product_spu_id}")
+    public ResponseEntity<?> deleteProductSpuById(@PathVariable Integer product_spu_id) {
+        productSpuService.deleteProductSpuById(product_spu_id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
     }
 }

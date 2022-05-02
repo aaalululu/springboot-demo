@@ -6,17 +6,19 @@ import javax.validation.constraints.NotNull;
 public class ProductSpuRequest {
 
     @NotNull
-    private String productName;
+    private String spuName;
+    @NotNull
     private Integer brandId;
+    private Integer categorySubId;
     @Min(0)
     private Integer price;
 
-    public String getProductName() {
-        return productName;
+    public String getSpuName() {
+        return spuName;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setSpuName(String spuName) {
+        this.spuName = spuName;
     }
 
     public Integer getBrandId() {
@@ -25,6 +27,14 @@ public class ProductSpuRequest {
 
     public void setBrandId(Integer brandId) {
         this.brandId = brandId;
+    }
+
+    public Integer getCategorySubId() {
+        return categorySubId;
+    }
+
+    public void setCategorySubId(Integer categorySubId) {
+        this.categorySubId = categorySubId;
     }
 
     public Integer getPrice() {

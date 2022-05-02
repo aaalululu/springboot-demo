@@ -3,9 +3,12 @@ package com.chianlulu.springbootdemo.service;
 import com.chianlulu.springbootdemo.dto.ProductSpuRequest;
 import com.chianlulu.springbootdemo.model.ProductSpu;
 
+import java.util.List;
+
 public interface ProductSpuService {
     ProductSpu getProductById(Integer product_spu_id);
+    List<ProductSpu> getProductSpuList(String search);
     Integer insertProduct(ProductSpuRequest productSpuRequest);
     void updateProduct(Integer product_spu_id,ProductSpuRequest productSpuRequest,ProductSpu productSpu);
-    void deleteProduct(Integer product_spu_id);
+    void deleteProductSpuById(Integer product_spu_id);
 }

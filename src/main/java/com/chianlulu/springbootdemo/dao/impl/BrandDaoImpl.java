@@ -26,12 +26,29 @@ public class BrandDaoImpl implements BrandDao {
     @Override
     public Brand getBrandById(Integer brandId) {
         String sql="SELECT brand_id,brand_name,brand_name_sub,create_date,edit_date FROM brand WHERE brand_id=:brand_id";
+//        練習mapSqlParameterSource
+//        MapSqlParameterSource mapSqlParameterSource=new MapSqlParameterSource();
+//        mapSqlParameterSource.addValue("brand_id",brandId);
+//        List<Brand> brandList = namedParameterJdbcTemplate.query(sql, mapSqlParameterSource, new BrandRowMapper());
+
         Map<String, Object> map=new HashMap<>();
         map.put("brand_id",brandId);
-
         List<Brand> brandList = namedParameterJdbcTemplate.query(sql, map, new BrandRowMapper());
         if(brandList.size()>0) {
             return brandList.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Brand> getBrands(String search) {
+        String sql="SELECT brand_id,brand_name,brand_name_sub,create_date,edit_date FROM brand WHERE brand_name LIKE :search";
+        Map<String,Object> map = new HashMap<>();
+        map.put("search","%"+search+"%");
+        List<Brand> brandLists=namedParameterJdbcTemplate.query(sql,map,new BrandRowMapper());
+        if(brandLists.size()>0) {
+            return brandLists;
         } else {
             return null;
         }
