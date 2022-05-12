@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf Practice</title>
+</head>
+<body>
+<div>
+<form action="#" th:action="@{/query}" th:object="${productSpuQueryParam}" method="get" >
+    <input type="text" th:field="*{search}"/>
+    <input type="submit" value="submit/"></p>
+
+
+</form>
+</div>
+
+</body>
+</html>

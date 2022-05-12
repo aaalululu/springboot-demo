@@ -1,29 +1,46 @@
 package com.chianlulu.springbootdemo.controller;
 
+import com.chianlulu.springbootdemo.dto.ProductSpuQueryParam;
 import com.chianlulu.springbootdemo.dto.ProductSpuRequest;
 import com.chianlulu.springbootdemo.model.ProductSpu;
 import com.chianlulu.springbootdemo.service.ProductSpuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class ProductSpuController {
 
     @Autowired
     private ProductSpuService productSpuService;
 
-    @GetMapping("/product_spu")
-    public ResponseEntity<List<ProductSpu>> getProductSpus(@RequestParam(required = false) String search) {
-        List<ProductSpu> productSpuList=productSpuService.getProductSpuList(search);
+
+/*
+    @RequestMapping("/product_spu")
+    public ResponseEntity<List<ProductSpu>> getProductSpus(
+            @RequestParam(required = false) String search ,
+            @RequestParam(required = false) String brandName,
+            @RequestParam(defaultValue = " product_spu.spu_id") String orderBy,
+            @RequestParam(defaultValue = " desc") String sort,
+            Model model){
+        ProductSpuQueryParam productSpuQueryParam = new ProductSpuQueryParam();
+        productSpuQueryParam.setSearch(search);
+        productSpuQueryParam.setBrandName(brandName);
+        productSpuQueryParam.setOrderBy(orderBy);
+        productSpuQueryParam.setSort(sort);
+        List<ProductSpu> productSpuList=productSpuService.getProductSpuList(productSpuQueryParam);
 
         return ResponseEntity.status(HttpStatus.OK).body(productSpuList);
     }
+*/
 
 
+/*  //RestFul
     @GetMapping("/product_spu/{product_spu_id}")
     public ResponseEntity<ProductSpu> getProductById(@PathVariable Integer product_spu_id) {
         ProductSpu productSpu=productSpuService.getProductById(product_spu_id);
@@ -33,6 +50,52 @@ public class ProductSpuController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
+    } */
+
+    //Thymeleaf 練習PathVariable
+    @RequestMapping("/product_spu/{product_spu_id}")
+    public String getProductById(@PathVariable Integer product_spu_id,Model model) {
+        ProductSpu productSpu = productSpuService.getProductById(product_spu_id);
+        if (productSpu != null) {
+            model.addAttribute("productSpu",productSpu);
+            return "query_spu_by_id";
+        } else {
+            return "error_page";
+        }
+    }
+
+    //Thymeleaf 練習RequestParam
+    @GetMapping("/product_spu")
+    public String getProductSpus(Model model,
+            @RequestParam(required = false) String search ,
+            @RequestParam(required = false) String brandId,
+            @RequestParam(defaultValue = " product_spu.price") String orderBy,
+            @RequestParam(defaultValue = " desc") String sort){
+        ProductSpuQueryParam productSpuQueryParam = new ProductSpuQueryParam();
+        productSpuQueryParam.setSearch(search);
+        productSpuQueryParam.setBrandId(brandId);
+        productSpuQueryParam.setOrderBy(orderBy);
+        productSpuQueryParam.setSort(sort);
+        List<ProductSpu> productSpuList=productSpuService.getProductSpuList(productSpuQueryParam);
+        model.addAttribute("productSpuList",productSpuList);
+
+        return "query_spu";
+    }
+
+    @GetMapping("/form")
+    public String queryByFormInput(Model model) {
+        ProductSpuQueryParam productSpuQueryParam = new ProductSpuQueryParam();
+        model.addAttribute("productSpuQueryParam",productSpuQueryParam);
+
+        return "query_form";
+    }
+
+    @GetMapping("/query")
+    public String queryByForm(Model model,@ModelAttribute
+                              ProductSpuQueryParam productSpuQueryParam){
+        List<ProductSpu> productSpuList = productSpuService.getProductSpuList(productSpuQueryParam);
+        model.addAttribute("productSpuList",productSpuList);
+        return "query_answer";
     }
 
     @PostMapping("/product_spu")

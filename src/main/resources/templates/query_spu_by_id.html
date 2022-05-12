@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf Practice</title>
+</head>
+<body>
+<table>
+    <thead>
+    <th>spu_id</th>
+    <th>spu_name</th>
+    <th>price</th>
+    <th>brand_id</th>
+    </thead>
+<tbody>
+<tr th:object="${productSpu}">
+    <!--不用帶物件本身 直接用其屬性 -->
+    <td th:text="*{spuId}"></td>
+    <td th:text="*{spuName}"></td>
+    <td th:text="*{price}"></td>
+    <td th:text="*{brandId}"></td>
+</tr>
+
+
+</tbody>
+</table>
+
+
+</body>
+</html>
