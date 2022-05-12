@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf Practice</title>
+</head>
+<body>
+<table>
+    <thead>
+    <th>spu_id</th>
+    <th>spu_name</th>
+    <th>price</th>
+    <th>brand_id</th>
+    </thead>
+<tbody>
+<tr th:each="productSpu:${productSpuList}">
+    <!--如果是用th:object 不用帶物件本身 直接用其屬性 -->
+    <!--如果是用th:each 迴圈foreach出每個物件 帶物件本身.其屬性 -->
+    <td th:text="*{productSpu.spuId}"></td>
+    <td th:text="*{productSpu.spuName}"></td>
+    <td th:text="*{productSpu.price}"></td>
+    <td th:text="*{productSpu.brandId}"></td>
+</tr>
+
+
+</tbody>
+</table>
+
+
+</body>
+</html>

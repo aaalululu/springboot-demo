@@ -1,9 +1,12 @@
 package com.chianlulu.springbootdemo.dao.impl;
 
 import com.chianlulu.springbootdemo.dao.ProductSpuDao;
+import com.chianlulu.springbootdemo.dto.ProductSpuQueryParam;
 import com.chianlulu.springbootdemo.dto.ProductSpuRequest;
 import com.chianlulu.springbootdemo.model.ProductSpu;
+import com.chianlulu.springbootdemo.model.SpuAndBrand;
 import com.chianlulu.springbootdemo.rowmapper.ProductSpuRawMapper;
+import com.chianlulu.springbootdemo.rowmapper.SpuAndBrandRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -22,9 +25,11 @@ public class ProductSpuDaoImpl implements ProductSpuDao {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    String newLine=System.getProperty("line.separator");
+
     @Override
     public ProductSpu getProductById(Integer spuId) {
-        String sql="SELECT * FROM public.product_spu WHERE spu_id=:spu_id;";
+        String sql="SELECT a.* FROM public.product_spu AS a WHERE a.spu_id=:spu_id;";
         Map<String,Object> map = new HashMap<>();
         map.put("spu_id",spuId);
 
@@ -38,16 +43,47 @@ public class ProductSpuDaoImpl implements ProductSpuDao {
     }
 
     @Override
-    public List<ProductSpu> getProductSpuList(String search) {
-        StringBuilder sql=new StringBuilder();
-        sql.append("SELECT * FROM public.product_spu WHERE 1=1 ");
+    public List<ProductSpu> getProductSpuList(ProductSpuQueryParam productSpuQueryParam) {
+        StringBuilder sql=getProductSpuListSql();
         Map<String,Object> map= new HashMap<>();
-        if(search != null) {
-            sql.append(" AND spu_name LIKE :search");
-            map.put("search","%"+search+"%");
+        if(productSpuQueryParam.getSearch() != null) {
+            sql.append(" AND product_spu.spu_name LIKE :search");
+            map.put("search","%"+productSpuQueryParam.getSearch()+"%");
         }
+        if(productSpuQueryParam.getBrandName() != null) {
+            sql.append(" AND brand.brand_name LIKE :brandName");
+            map.put("brandName","%"+productSpuQueryParam.getBrandName()+"%");
+        }
+
+        if(productSpuQueryParam.getOrderBy() == null) {
+            sql.append(" ORDER BY product_spu.edit_date");
+        } else {
+            sql.append(" ORDER BY "+productSpuQueryParam.getOrderBy()+" ");
+        }
+
+        if(productSpuQueryParam.getSort() == null) {
+            sql.append(" DESC");
+        } else {
+            sql.append(" :sort");
+            map.put("sort",productSpuQueryParam.getSort());
+        }
+
         List<ProductSpu> productSpuLists = namedParameterJdbcTemplate.query(sql.toString(),map,new ProductSpuRawMapper());
         return productSpuLists;
+    }
+
+    private StringBuilder getProductSpuListSql() {
+        StringBuilder sql=new StringBuilder();
+        sql.append("SELECT product_spu.spu_id,product_spu.spu_name,product_spu.brand_id").append(newLine);
+        sql.append(",brand.brand_name,product_spu.category_sub_id,product_spu.img_url").append(newLine);
+        sql.append(",product_spu.spu_info,product_spu.price,product_spu.is_marketable").append(newLine);
+        sql.append(",product_spu.create_date,product_spu.edit_date").append(newLine);
+        sql.append("FROM public.product_spu AS product_spu").append(newLine);
+        sql.append("JOIN public.brand AS brand").append(newLine);
+        sql.append("ON product_spu.brand_id=brand.brand_id").append(newLine);
+        sql.append("WHERE 1=1").append(newLine);
+
+        return sql;
     }
 
     @Override

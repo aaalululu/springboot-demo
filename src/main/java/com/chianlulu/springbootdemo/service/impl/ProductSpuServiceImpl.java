@@ -1,6 +1,7 @@
 package com.chianlulu.springbootdemo.service.impl;
 
 import com.chianlulu.springbootdemo.dao.ProductSpuDao;
+import com.chianlulu.springbootdemo.dto.ProductSpuQueryParam;
 import com.chianlulu.springbootdemo.dto.ProductSpuRequest;
 import com.chianlulu.springbootdemo.model.ProductSpu;
 import com.chianlulu.springbootdemo.service.ProductSpuService;
@@ -20,8 +21,8 @@ public class ProductSpuServiceImpl implements ProductSpuService {
     }
 
     @Override
-    public List<ProductSpu> getProductSpuList(String search) {
-        return productSpuDao.getProductSpuList(search);
+    public List<ProductSpu> getProductSpuList(ProductSpuQueryParam productSpuQueryParam) {
+        return productSpuDao.getProductSpuList(productSpuQueryParam);
     }
 
     @Override

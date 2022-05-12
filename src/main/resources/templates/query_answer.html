@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bootstrap demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+          crossorigin="anonymous">
+</head>
+<body>
+<div>
+    <h1>商品搜尋結果</h1>
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+    <tr>
+        <th>spu_id</th>
+        <th>spu_name</th>
+        <th>price</th>
+        <th>brand_id</th>
+    </tr>
+
+    </thead>
+<tbody>
+<tr th:each="productSpu:${productSpuList}">
+    <!--如果是用th:object 不用帶物件本身 直接用其屬性 -->
+    <!--如果是用th:each 迴圈foreach出每個物件 帶物件本身.其屬性 -->
+    <td th:text="*{productSpu.spuId}"></td>
+    <td th:text="*{productSpu.spuName}"></td>
+    <td th:text="*{productSpu.price}"></td>
+    <td th:text="*{productSpu.brandId}"></td>
+</tr>
+
+
+</tbody>
+</table>
+
+</div>
+</body>
+</html>
