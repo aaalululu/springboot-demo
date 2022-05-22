@@ -60,7 +60,7 @@ public class ProductSpuController {
             model.addAttribute("productSpu",productSpu);
             return "query_spu_by_id";
         } else {
-            return "error_page";
+            return "query_spu_by_id";
         }
     }
 
@@ -95,7 +95,15 @@ public class ProductSpuController {
                               ProductSpuQueryParam productSpuQueryParam){
         List<ProductSpu> productSpuList = productSpuService.getProductSpuList(productSpuQueryParam);
         model.addAttribute("productSpuList",productSpuList);
-        return "query_answer";
+        return "query_v3";
+    }
+
+    @GetMapping("form_query")
+    public String queryByFormAndReturn(Model model) {
+        ProductSpuQueryParam productSpuQueryParam = new ProductSpuQueryParam();
+        model.addAttribute("productSpuQueryParam",productSpuQueryParam);
+
+        return "query_v3";
     }
 
     @PostMapping("/product_spu")

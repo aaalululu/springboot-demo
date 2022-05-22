@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bootstrap demo</title>
+    <script>
+
+        function resetInput() {
+            let inputData = document.getElementById("search");
+            inputData.value="";
+        }
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+          crossorigin="anonymous">
+</head>
+<body>
+<div>
+    <h1>商品關鍵字搜尋</h1>
+    <form action="#" th:action="@{/query}" th:object="${productSpuQueryParam}" method="get" >
+        <label>
+            <input type="text" id="search" th:field="*{search}"/>
+        </label>
+        <button type="submit" class="btn btn-primary" >Search</button>
+        <button type="reset" onclick="resetInput()" class="btn btn-primary" >Reset</button>
+
+
+    </form>
+</div>
+<div>
+
+
+    <h1>商品搜尋結果</h1>
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+    <tr>
+        <th>spu_id</th>
+        <th>spu_name</th>
+        <th>price</th>
+        <th>brand_id</th>
+    </tr>
+
+    </thead>
+<tbody>
+<tr th:each="productSpu:${productSpuList}">
+    <!--如果是用th:object 不用帶物件本身 直接用其屬性 -->
+    <!--如果是用th:each 迴圈foreach出每個物件 帶物件本身.其屬性 -->
+    <td th:text="${productSpu.spuId}"></td>
+    <td th:text="${productSpu.spuName}"></td>
+    <td th:text="${productSpu.price}"></td>
+    <td th:text="${productSpu.brandId}"></td>
+</tr>
+
+
+</tbody>
+</table>
+
+</div>
+</body>
+</html>
