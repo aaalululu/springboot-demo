@@ -92,9 +92,9 @@ public class ProductSpuController {
 
     @GetMapping("/query")
     public String queryByForm(Model model,@ModelAttribute
-                              ProductSpuQueryParam productSpuQueryParam){
+                              ProductSpuQueryParam productSpuQueryParam) {
         List<ProductSpu> productSpuList = productSpuService.getProductSpuList(productSpuQueryParam);
-        model.addAttribute("productSpuList",productSpuList);
+        model.addAttribute("productSpuList", productSpuList);
         return "query_v3";
     }
 

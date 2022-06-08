@@ -22,8 +22,13 @@ import java.util.Map;
 @Component
 public class ProductSpuDaoImpl implements ProductSpuDao {
 
-    @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Autowired
+    private void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate=namedParameterJdbcTemplate;
+    }
+//    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     String newLine=System.getProperty("line.separator");
 
@@ -58,7 +63,7 @@ public class ProductSpuDaoImpl implements ProductSpuDao {
         if(productSpuQueryParam.getOrderBy() == null) {
             sql.append(" ORDER BY product_spu.edit_date");
         } else {
-            sql.append(" ORDER BY "+productSpuQueryParam.getOrderBy()+" ");
+            sql.append(" ORDER BY ").append(productSpuQueryParam.getOrderBy());
         }
 
         if(productSpuQueryParam.getSort() == null) {
@@ -68,8 +73,7 @@ public class ProductSpuDaoImpl implements ProductSpuDao {
             map.put("sort",productSpuQueryParam.getSort());
         }
 
-        List<ProductSpu> productSpuLists = namedParameterJdbcTemplate.query(sql.toString(),map,new ProductSpuRawMapper());
-        return productSpuLists;
+        return namedParameterJdbcTemplate.query(sql.toString(),map,new ProductSpuRawMapper());
     }
 
     private StringBuilder getProductSpuListSql() {
@@ -103,7 +107,8 @@ public class ProductSpuDaoImpl implements ProductSpuDao {
 
         /* 帶有keyholder為參數的建構式,第二個參數只能是SqlParameterSource的類型
            故要用new MapSqlParameterSource進行轉換 */
-        Integer productSpuId=namedParameterJdbcTemplate.update(sql,new MapSqlParameterSource(map),keyHolder,new String[] {"spu_id"});
+        int productSpuId;
+        productSpuId = namedParameterJdbcTemplate.update(sql,new MapSqlParameterSource(map),keyHolder,new String[] {"spu_id"});
 
         return productSpuId;
     }
