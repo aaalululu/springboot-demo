@@ -6,7 +6,7 @@ public class Members {
     private Integer memberId;
     private String memberName;
     private String email;
-    private String mpassword;
+    private String memberPassword;
     private String phone;
     private String address;
     private Date createDate;
@@ -68,11 +68,11 @@ public class Members {
         this.editDate = editDate;
     }
 
-    public String getMpassword() {
-        return mpassword;
+    public String getMemberPassword() {
+        return memberPassword;
     }
 
-    public void setMpassword(String mpassword) {
-        this.mpassword = mpassword;
+    public void setMemberPassword(String memberPassword) {
+        this.memberPassword = memberPassword;
     }
 }
